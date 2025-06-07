@@ -1,0 +1,282 @@
+body{
+    margin: 0;
+    padding: 0;
+    background-color:#0c0d14;
+    font-family: 'fredoka';
+    color: #ffffff;
+}
+
+main{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+
+/* NAVBAR */
+nav{
+    background-color:#373952 ;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 60px;
+    padding: 3px;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 2;
+}
+
+
+.logo{
+    width: 4rem;
+}
+
+.logo img{
+    width: 150px;
+    height: auto;
+    margin-left: 55px;
+}
+
+.serchbar{
+    background-color:#46486a ;
+    height: 30px;
+    border-radius: 50px;
+    padding : 7px 15px;
+    width: 600px;
+}
+
+.serchbar input{
+    border: none;
+    outline: none;
+    background: none;
+    height: 30px;
+    color: aliceblue;
+    margin-right: 400px;
+}
+
+.serchbar a{
+    padding: 0;
+    margin : 0;
+    color:#5c5e81 ;
+    
+}
+
+.masuk{
+    width: 5rem;
+    height: 2rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgb(118, 0, 222);
+    border-radius: 50px;
+    font-weight: bold;
+    font-size: larger;
+    margin-right: 50px;
+}
+/*  BATAS NAVBAR */
+
+/* side nav */
+
+.nav-container{
+    width: 3%;
+    height: 100vh;
+    background-color: #373952;
+    position: fixed;
+    top: 60px;
+    left: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    z-index: 1;
+}
+
+.nav-container:hover{
+    width: 15%;
+    height: 100vh;
+    background-color: #373952;
+    position: fixed;
+    top: 60px;
+    left: 0;
+    display: flex;
+    flex-direction: column;
+    padding: 30px 10px;
+    transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    z-index: 1;
+}
+
+.nav-btn{
+    width: 100%;
+    height: 60px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 10px;
+    border-radius: 10px;
+    text-decoration: none;
+}
+
+.side-nav{
+    display: none;
+}
+
+.mousein{
+    display: flex;
+    width: 100%;
+    height: 100%;
+    flex-direction: column;
+    justify-content: center;
+    color: #ffffff;
+}
+/* end side nav */
+
+/* Carousel  */
+
+.carousel{
+    width: 85%;
+    height: 400px;
+    overflow: hidden;
+    border-radius: 25px;
+    margin-top: 100px;
+
+}
+
+.container{
+    width: 100%;
+    height: 100%;
+    position: relative;
+
+}
+
+.card{
+    width: 100%;
+    height: 100%;
+    transition: transform 0.5s ease;
+    position: absolute;
+}
+
+.tombol{
+    position: absolute;
+    border: none;
+    cursor: pointer;
+    background: fixed;
+    color: #ffffff;
+    width: 3%;
+    height: 100%;
+}
+
+.carousel:hover .tombol{
+    position: absolute;
+    border: none;
+    background-color:rgba(0, 0, 0, 0.452);
+    cursor: pointer;
+    color: #ffffff;
+    width: 3rem;
+    height: 100%;
+}
+
+#kanan{
+    right: 0px;
+}
+
+/*batas carousel*/
+
+
+/* section game */
+.section-game{
+    width: 85%;
+    height: auto;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    margin-top: 20px;
+
+}
+
+
+.baris{
+    padding-left: 30px;
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    flex-wrap: nowrap;
+    overflow: scroll;
+    /* margin-left: 50px; */
+    /* padding: 10px; */
+    margin-top: 2px;
+}
+
+.baris::-webkit-scrollbar {
+    display: none;
+}
+
+
+.game{
+    width: 200px;
+    height: auto;
+    padding: 30px;
+    border-radius: 55px;
+
+}
+
+
+
+.text1{
+    /* margin-left: 180px; */
+    margin-top: 12px;
+    margin-bottom: -5px;
+    padding-top: 12px;
+}
+
+
+.cover :hover{
+    box-shadow: -3px -3px 45px 9px rgba(161,9,255,0.79);
+    padding: 0;
+    margin: 0;
+    transition: ease-in 0.2s;
+}
+
+.text2{
+    margin-top: 60px;
+    margin-bottom: -5px;
+    padding-top: 12px;
+}
+
+
+
+/* .canvas{
+    /* background-color: #28293c; */
+    /* border-radius: 30px 30px 0 0; */
+    /* width: 800px;
+    height: 400px; */
+
+
+/* footer */
+
+footer{
+    width: 100%;
+    height: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    background-color: #373952;
+}
+
+#populer{
+    position: absolute;
+    bottom: 0;
+    left: 0;  
+    width: 100%;
+    height: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #373952;
+}
+
+

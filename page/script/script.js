@@ -31,3 +31,14 @@ document.addEventListener('DOMContentLoaded', () => {
         handleMove('right')
     }, 2500)
 })
+
+
+const side = document.querySelector('.nav-container')
+const sideNav = document.querySelectorAll('.side-nav')
+
+side.addEventListener('mouseover', () => {  
+    sideNav.forEach(sideNav => sideNav.classList.add('mousein'));
+})
+side.addEventListener('mouseout', () => {
+    sideNav.forEach(sideNav => sideNav.classList.remove('mousein'));
+})
