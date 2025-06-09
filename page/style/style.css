@@ -12,6 +12,7 @@ main{
     display: flex;
     flex-direction: column;
     align-items: center;
+    
 }
 
 
@@ -36,9 +37,10 @@ nav{
 }
 
 .logo img{
-    width: 150px;
+    width: 120px;
     height: auto;
     margin-left: 55px;
+    padding: 10px 5px;
 }
 
 .serchbar{
@@ -193,6 +195,9 @@ nav{
     flex-direction: column;
     align-items: flex-start;
     margin-top: 20px;
+    animation: appear linear;
+    animation-timeline: view();
+    animation-range: entry 0;
 
 }
 
@@ -234,7 +239,7 @@ nav{
 
 
 .cover :hover{
-    box-shadow: -3px -3px 45px 9px rgba(161,9,255,0.79);
+    box-shadow: -3px 0px 18px 2px rgba(178,111,255,0.63);
     padding: 0;
     margin: 0;
     transition: ease-in 0.2s;
@@ -279,4 +284,15 @@ footer{
     background-color: #373952;
 }
 
+@keyframes appear{
+    from{
+        opacity: 0;
+        scale: 0.5;
+        
+    }
+    to{
+        opacity: 1;
+        scale: 1;
+    }
+}
 
