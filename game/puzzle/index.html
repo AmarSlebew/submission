@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Slide Puzzle 3x3</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+      background: #f0f0f0;
+      padding: 20px;
+    }
+
+    #top-panel {
+      width: 100%;
+      max-width: 320px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 10px;
+    }
+
+    #pattern {
+      display: grid;
+      grid-template-columns: repeat(3, 30px);
+      gap: 3px;
+    }
+
+    .pattern-tile {
+      width: 30px;
+      height: 30px;
+      background: #ddd;
+      color: #333;
+      font-weight: bold;
+      font-size: 16px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      border-radius: 4px;
+    }
+
+    #timer {
+      font-size: 16px;
+      font-weight: bold;
+    }
+
+    #board {
+      display: grid;
+      grid-template-columns: repeat(3, 100px);
+      grid-template-rows: repeat(3, 100px);
+      gap: 5px;
+    }
+
+    .tile {
+      width: 100px;
+      height: 100px;
+      background: #4caf50;
+      color: white;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 2rem;
+      font-weight: bold;
+      cursor: pointer;
+      border-radius: 8px;
+      transition: all 0.2s ease-in-out;
+    }
+
+    .empty {
+      background: #ccc;
+      cursor: default;
+    }
+
+    @media (max-width: 400px) {
+      #board {
+        grid-template-columns: repeat(3, 80px);
+        grid-template-rows: repeat(3, 80px);
+      }
+
+      .tile {
+        width: 80px;
+        height: 80px;
+        font-size: 1.5rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div id="top-panel">
+    <div id="pattern">
+      <div class="pattern-tile">1</div>
+      <div class="pattern-tile">2</div>
+      <div class="pattern-tile">3</div>
+      <div class="pattern-tile">4</div>
+      <div class="pattern-tile">5</div>
+      <div class="pattern-tile">6</div>
+      <div class="pattern-tile">7</div>
+      <div class="pattern-tile">8</div>
+      <div class="pattern-tile"></div>
+    </div>
+    <div id="timer">Waktu: 0 detik</div>
+  </div>
+
+  <div id="board"></div>
+
+  <script src="index.js"></script>
+</body>
+</html>

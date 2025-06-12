@@ -33,31 +33,34 @@ nav{
 
 
 .logo{
-    width: 4rem;
+    width: 5rem;
 }
 
 .logo img{
-    width: 120px;
+    width: 60px;
     height: auto;
-    margin-left: 55px;
+    margin-left: 10px;
     padding: 10px 5px;
 }
 
 .serchbar{
+    display: flex;
+    flex-direction: row;
     background-color:#46486a ;
-    height: 30px;
-    border-radius: 50px;
-    padding : 7px 15px;
-    width: 600px;
+    height: 1rem;
+    border-radius: 25px;
+    padding : 4px;
+    width: 150px;
 }
 
 .serchbar input{
     border: none;
     outline: none;
     background: none;
-    height: 30px;
+    height: 10px;
     color: aliceblue;
-    margin-right: 400px;
+    margin-right: 30px;
+    width: 100px;
 }
 
 .serchbar a{
@@ -68,23 +71,23 @@ nav{
 }
 
 .masuk{
-    width: 5rem;
-    height: 2rem;
+    width: 4rem;
+    height: 1.5rem;
     display: flex;
     justify-content: center;
     align-items: center;
     background-color: rgb(118, 0, 222);
-    border-radius: 50px;
+    border-radius: 20px;
     font-weight: bold;
-    font-size: larger;
-    margin-right: 50px;
+    font-size: small;
+    margin-right: 20px;
 }
 /*  BATAS NAVBAR */
 
 /* side nav */
 
 .nav-container{
-    width: 3%;
+    width: 6%;
     height: 100vh;
     background-color: #373952;
     position: fixed;
@@ -97,11 +100,11 @@ nav{
 }
 
 .nav-container:hover{
-    width: 15%;
+    width: 30%;
     height: 100vh;
     background-color: #373952;
     position: fixed;
-    top: 60px;
+    top: 40px;
     left: 0;
     display: flex;
     flex-direction: column;
@@ -116,9 +119,9 @@ nav{
     display: flex;
     justify-content: center;
     align-items: center;
-    margin-top: 10px;
     border-radius: 10px;
     text-decoration: none;
+    font-size: small
 }
 
 .side-nav{
@@ -136,14 +139,13 @@ nav{
 /* end side nav */
 
 /* Carousel  */
-
 .carousel{
     width: 85%;
-    height: 400px;
+    height: 200px;
     overflow: hidden;
     border-radius: 25px;
-    margin-top: 100px;
-
+    margin-top: 80px;
+    margin-left: 20px;
 }
 
 .container{
@@ -166,7 +168,7 @@ nav{
     cursor: pointer;
     background: fixed;
     color: #ffffff;
-    width: 3%;
+    width: 1.5rem;
     height: 100%;
 }
 
@@ -176,7 +178,7 @@ nav{
     background-color:rgba(0, 0, 0, 0.452);
     cursor: pointer;
     color: #ffffff;
-    width: 3rem;
+    width: 1.5rem;
     height: 100%;
 }
 
@@ -194,16 +196,13 @@ nav{
     display: flex;
     flex-direction: column;
     align-items: flex-start;
-    margin-top: 20px;
-    animation: appear linear;
-    animation-timeline: view();
-    animation-range: entry 0;
-
+    margin-top: 5px;
+    margin-left: 20px;
 }
 
 
 .baris{
-    padding-left: 30px;
+    padding-left: 10px;
     width: 100%;
     display: flex;
     flex-direction: row;
@@ -221,14 +220,18 @@ nav{
 
 
 .game{
-    width: 200px;
+    width: 100px;
     height: auto;
-    padding: 30px;
-    border-radius: 55px;
-
+    padding: 10px;
+    border-radius: 20px;
 }
 
-
+.bungkus:nth-of-type(n+2){
+    width: 100%;
+    animation: appear linear;
+    animation-timeline: view();
+    animation-range: entry 0;
+}
 
 .text1{
     /* margin-left: 180px; */
@@ -244,14 +247,6 @@ nav{
     margin: 0;
     transition: ease-in 0.2s;
 }
-
-.text2{
-    margin-top: 60px;
-    margin-bottom: -5px;
-    padding-top: 12px;
-}
-
-
 
 /* .canvas{
     /* background-color: #28293c; */
@@ -296,3 +291,179 @@ footer{
     }
 }
 
+@media screen and (min-width: 480px) {
+    .carousel{
+        width: 85%;
+        height: 400px;
+    }   
+    
+    .logo{
+        width: 4rem;
+    }
+
+    .logo img{
+        width: 120px;
+        height: auto;
+        margin-left: 55px;
+        padding: 10px 5px;
+    }
+
+    .serchbar{
+        background-color:#46486a ;
+        height: 30px;
+        border-radius: 50px;
+        padding : 7px 15px;
+        width: 600px;
+    }
+
+    .serchbar input{
+        border: none;
+        outline: none;
+        background: none;
+        height: 30px;
+        color: aliceblue;
+        margin-right: 400px;
+    }
+
+    .serchbar a{
+        padding: 0;
+        margin : 0;
+        color:#5c5e81 ;
+        
+    }
+
+    .masuk{
+        width: 5rem;
+        height: 2rem;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background-color: rgb(118, 0, 222);
+        border-radius: 50px;
+        font-weight: bold;
+        font-size: larger;
+        margin-right: 50px;
+    }
+
+    .nav-container{
+        width: 3%;
+        height: 100vh;
+        background-color: #373952;
+        position: fixed;
+        top: 60px;
+        left: 0;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        z-index: 1;
+    }
+
+    .nav-container:hover{
+        width: 15%;
+        height: 100vh;
+        background-color: #373952;
+        position: fixed;
+        top: 60px;
+        left: 0;
+        display: flex;
+        flex-direction: column;
+        padding: 30px 10px;
+        transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        z-index: 1;
+    }
+
+    .nav-btn{
+        width: 100%;
+        height: 60px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-top: 10px;
+        border-radius: 10px;
+        text-decoration: none;
+    }
+
+    .tombol{
+        position: absolute;
+        border: none;
+        cursor: pointer;
+        background: fixed;
+        color: #ffffff;
+        width: 3rem;
+        height: 100%;
+    }
+
+    .carousel:hover .tombol{
+        position: absolute;
+        border: none;
+        background-color:rgba(0, 0, 0, 0.452);
+        cursor: pointer;
+        color: #ffffff;
+        width: 3rem;
+        height: 100%;
+    }
+
+    .section-game{
+        width: 85%;
+        height: auto;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        margin-top: 20px;
+    }
+
+    .bungkus:nth-of-type(n+2){
+        width: 100%;
+        animation: appear linear;
+        animation-timeline: view();
+        animation-range: entry 0;
+    }
+
+    .baris{
+        padding-left: 30px;
+        width: 100%;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        flex-wrap: nowrap;
+        overflow: scroll;
+        /* margin-left: 50px; */
+        /* padding: 10px; */
+        margin-top: 2px;
+    }
+
+    .baris::-webkit-scrollbar {
+        display: none;
+    }
+
+
+    .game{
+        width: 200px;
+        height: auto;
+        padding: 30px;
+        border-radius: 55px;
+
+    }
+
+    .text1{
+        /* margin-left: 180px; */
+        margin-top: 12px;
+        margin-bottom: -5px;
+        padding-top: 12px;
+    }
+
+
+    .cover :hover{
+        box-shadow: -3px 0px 18px 2px rgba(178,111,255,0.63);
+        padding: 0;
+        margin: 0;
+        transition: ease-in 0.2s;
+    }
+
+    .text2{
+        margin-top: 60px;
+        margin-bottom: -5px;
+        padding-top: 12px;
+    }
+
+}

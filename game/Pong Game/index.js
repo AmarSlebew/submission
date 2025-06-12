@@ -1,249 +1,182 @@
-const { body } = document;
-const canvas = document.createElement('canvas');
-const context = canvas.getContext('2d');
-const width = 500;
-const height = 700;
-let canvasPosition = 0;
+const canvas = document.getElementById('pong');
+const ctx = canvas.getContext('2d');
+const sound = new Audio('hit.wav')
+const soundDinding = new Audio('hit.wav')
+sound.preload = "auto";
+soundDinding.preload = "auto";
 
-const isMobile = window.matchMedia("(max-width: 600px)");
-const gameOverDiv = document.createElement('div');
-
-const paddleWidth = 10;
-const paddleHeight = 50;
-const paddleDiff = paddleWidth / 2;
-let paddleBawahx = 255;
-let paddleAtasx = 255;
-let pemainGerak = false;
-let paddleContact = false;
-
-let bolaX = 250;
-let bolaY = 350;
-const bolaRadius = 5;
-
-let skorPemain = 0;
-let skorBot = 0;
-const skorPemenang = 5;
-let isNewGame = true;
-let isGameOver = true;
-
-let kecepatanY;
-let kecepatanX;
-let trajectoryX;
-let kecepatanCom;
-
-if(isMobile.matches){
-    kecepatanY = -2;
-    kecepatanX = kecepatanY;
-    kecepatanCom = 4;
-}else{
-    kecepatanY = -1;
-    kecepatanX = kecepatanY;
-    kecepatanCom = 3;
-}
-
-const gerakBola = () => {
-    bolaY += kecepatanY;
-
-    if (paddleContact) {
-        bolaX += trajectoryX;
+function resizeCanvas() {
+    if (window.innerWidth <= 768) { // Ukuran untuk mobile
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
     } else {
-        bolaX += kecepatanX;
+      // Ukuran default untuk desktop
+      canvas.width = 500;
+      canvas.height = 700;
     }
+  }
+
+resizeCanvas();
+
+  // Juga panggil saat window di-resize
+window.addEventListener('resize', resizeCanvas);
+
+const paddleWidth = 100;
+const paddleHeight = 10;
+const kecepatanBot = 3; 
+
+let player = { x: 200, y: canvas.height - 20 };
+let bot = { x: 200, y: 10 };
+
+let ball = {
+  x: canvas.width / 2,
+  y: canvas.height / 2,
+  radius: 7,
+  speed: 10,
+  dx: 3,
+  dy: -4
+};
+
+let score = { player: 0, bot: 0 };
+const winningScore = 5;
+let isGameOver = false;
+
+const gameStart = document.getElementById('game-start')
+const gameOverDiv = document.getElementById('game-over');
+const winnerText = document.getElementById('winner');
+
+function drawPaddle(p) {
+  ctx.fillStyle = 'white';
+  ctx.fillRect(p.x, p.y, paddleWidth, paddleHeight);
 }
 
-const bolaReset = () => {
-    bolaX = width / 2;
-    bolaY = height / 2;
-    kecepatanY = -3;
-    kecepatanX = -kecepatanY;
-    paddleContact = false;
+function drawBall() {
+  ctx.beginPath();
+  ctx.arc(ball.x, ball.y, ball.radius, 0, Math.PI * 2);
+  ctx.fillStyle = 'white';
+  ctx.fill();
+  ctx.closePath();
 }
 
-const cetakSkor = () => {
-    if (bolaX - bolaRadius <= 0 || bolaX + bolaRadius >= width) {
-        kecepatanX = -kecepatanX;
-    }
-
-
-    if (bolaY > height - 20 - paddleDiff){
-        if (bolaX > paddleBawahx && bolaX < paddleBawahx + paddleHeight){
-            paddleContact = true;
-            if(pemainGerak){
-                kecepatanY -= 1;
-                if(kecepatanY <= -5){
-                    kecepatanY = -5;
-                    kecepatanCom = 6;
-                }
-            }
-            kecepatanY = -kecepatanY;
-            trajectoryX = (bolaX - (paddleBawahx + paddleHeight / 2)) * 0.2;
-        } else if(bolaY > height + bolaRadius){
-            bolaReset();
-            skorBot++;
-        }
-    }
-
-    if (bolaY < 10 + paddleDiff) {
-        if (bolaX > paddleAtasx && bolaX < paddleAtasx + paddleHeight) {
-            if(pemainGerak){
-                kecepatanY += 1;
-                if(kecepatanY >= 5){
-                    kecepatanY = 5;
-                }
-            }
-            kecepatanY = -kecepatanY;
-            trajectoryX = (bolaX - (paddleAtasx + paddleHeight / 2)) * 0.2;
-        } else if(bolaY < -bolaRadius){
-            bolaReset();
-            skorPemain++;
-        }
-    }
+function drawNet() {
+  ctx.setLineDash([5, 15]);
+  ctx.beginPath();
+  ctx.moveTo(0, canvas.height / 2);
+  ctx.lineTo(canvas.width, canvas.height / 2);
+  ctx.strokeStyle = 'limegreen';
+  ctx.stroke();
+  ctx.setLineDash([]);
 }
 
-const gerakBot = () => {
-    if (paddleAtasx + paddleDiff < bolaX){
-        paddleAtasx += kecepatanCom;
-    } else{
-        paddleAtasx -= kecepatanCom;
-    }
-
-    if (paddleAtasx < 0) {
-        paddleAtasx = 0;
-    } else if (paddleAtasx > width - paddleHeight) {
-        paddleAtasx = width - paddleHeight;
-    }
+function drawScore() {
+  ctx.font = '20px Courier New';
+  ctx.fillText(`Pemain: ${score.player}`, 20, canvas.height / 2 + 40);
+  ctx.fillText(`Bot: ${score.bot}`, 20, canvas.height / 2 - 20);
 }
 
-const gameOver = () => {
-    if(skorPemain === skorPemenang || skorBot === skorPemenang){
-        isGameOver = true;
-        const winner = skorPemain === skorPemenang ? 'Pemain' : 'Bot';
-        tampilanGameOver(winner);
+function resetBall() {
+  ball.x = canvas.width / 2;
+  ball.y = canvas.height / 2;
+  ball.dx = (Math.random() > 0.5 ? 1 : -1) * (2 + Math.random() * 2);
+  ball.dy = (Math.random() > 0.5 ? 1 : -1) * (2 + Math.random() * 2);
+}
+
+function moveBot() {
+  if (ball.dy < 0) {
+    const tengahBot = bot.x + paddleWidth / 2;
+    const selisih = ball.x - tengahBot;
+
+    const kesalahan = Math.random() * 30 - 15;
+
+    const kecepatan = Math.min(kecepatanBot, Math.abs(selisih) / 10);
+
+    if (Math.abs(selisih) > 10) {
+      bot.x += Math.sign(selisih + kesalahan) * kecepatan;
     }
+  }
+
+  if (bot.x < 0) bot.x = 0;
+  if (bot.x + paddleWidth > canvas.width) bot.x = canvas.width - paddleWidth;
 }
 
-const tampilanGameOver = (winner) => {
-    canvas.hidden = true;
-    gameOverDiv.textContent = '';
-    const title = document.createElement('h1');
-    title.textContent = `${winner} Menang!`;
-    const tombolUlang = document.createElement('button');
-    tombolUlang.setAttribute('onClick', 'startGame()');
-    tombolUlang.textContent = 'Main Lagi';
-    gameOverDiv.append(title, tombolUlang);
-    body.appendChild(gameOverDiv);
-    gameOverDiv.style.cssText = `
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        background-color: rgba(0, 0, 0, 0.8);
-        color: white;
-        padding: 20px;
-        border-radius: 10px;
-        z-index: 100;
-    `;
-    tombolUlang.style.cssText = `
-        background-color: limegreen;
-        color: white;
-        border: none;
-        padding: 10px 20px;
-        border-radius: 5px;
-        cursor: pointer;
-        margin-top: 15px;
-        font-size: 18px;
-    `;
+
+function updateBall() {
+  ball.x += ball.dx;
+  ball.y += ball.dy;
+
+  if (ball.x - ball.radius <= 0 || ball.x + ball.radius >= canvas.width) {
+    ball.dx *= -1;
+    soundDinding.play();
+  }
+
+  if (ball.y + ball.radius >= player.y &&
+      ball.x >= player.x && ball.x <= player.x + paddleWidth) {
+    ball.dy *= -1.05;
+    ball.speed += 0.2;
+    sound.play();
+  }
+
+  if (ball.y - ball.radius <= bot.y + paddleHeight &&
+      ball.x >= bot.x && ball.x <= bot.x + paddleWidth) {
+    ball.dy *= -1.05;
+    sound.play();
+  }
+
+  if (ball.y - ball.radius > canvas.height) {
+    score.bot++;
+    checkGameOver();
+    resetBall();
+  }
+
+  if (ball.y + ball.radius < 0) {
+    score.player++;
+    checkGameOver();
+    resetBall();
+  }
 }
 
-const renderCanvas = () => {
-    context.fillStyle = 'black';
-    context.fillRect(0, 0, width, height);
-
-    context.fillStyle = 'white';
-    context.fillRect(paddleBawahx, height - 20, paddleHeight, paddleWidth );
-    context.fillRect(paddleAtasx, 10, paddleHeight, paddleWidth);
-
-    context.beginPath();
-    context.setLineDash([5]);
-    context.moveTo(0, height / 2);
-    context.lineTo(width, height / 2);
-    context.strokeStyle = 'limegreen';
-    context.stroke();
-
-    context.beginPath();
-    context.arc(bolaX, bolaY, bolaRadius, 0, 2 * Math.PI);
-    context.fillStyle = 'white';
-    context.fill();
-
-    context.font = '20px Courier New';
-    context.fillStyle = 'white';
-    context.fillText(`Skor P: ${skorPemain}`, 20, height / 2 + 50);
-    context.fillText(`Skor B: ${skorBot}`, 20, height / 2 - 50);
+function checkGameOver() {
+  if (score.player >= winningScore || score.bot >= winningScore) {
+    isGameOver = true;
+    winnerText.textContent = score.player >= winningScore ? 'Pemain Menang!' : 'Bot Menang!';
+    gameOverDiv.style.display = 'block';
+  }
 }
 
-const createCanvas = () => {
-    canvas.width = width;
-    canvas.height = height;
-    canvas.style.cssText = `
-        display: block;
-        margin: 20px auto;
-        border: 2px solid limegreen;
-        background-color: black;
-    `;
-    body.appendChild(canvas);
-    canvasPosition = canvas.getBoundingClientRect().left;
+function draw() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  drawPaddle(player);
+  drawPaddle(bot);
+  drawBall();
+  drawNet();
+  drawScore();
 }
 
-const animate = () => {
-    renderCanvas();
-    gerakBola();
-    cetakSkor();
-    gerakBot();
-    gameOver();
-    if (!isGameOver) {
-        requestAnimationFrame(animate);
-    }
+function gameLoop() {
+  if (!isGameOver) {
+    draw();
+    moveBot();
+    updateBall();
+    requestAnimationFrame(gameLoop);
+  }
+}
+function startGame() {
+  isGameOver = false;
+  score.player = 0;
+  score.bot = 0;
+  resetBall();
+  document.getElementById('game-over').style.display = 'none';
+  gameLoop();
 }
 
-const startGame = () => {
-    if (isGameOver && !isNewGame) {
-        if (body.contains(gameOverDiv)) {
-            body.removeChild(gameOverDiv);
-        }
-        canvas.hidden = false;
-    }
-    isGameOver = false;
-    isNewGame = false;
-    skorPemain = 0;
-    skorBot = 0;
-    bolaReset();
-    if (!canvas.parentNode) {
-        createCanvas();
-    } else {
-        canvasPosition = canvas.getBoundingClientRect().left;
-    }
-    animate();
+canvas.addEventListener('mousemove', (e) => {
+  const rect = canvas.getBoundingClientRect();
+  player.x = e.clientX - rect.left - paddleWidth / 2;
+  if (player.x < 0) player.x = 0;
+  if (player.x + paddleWidth > canvas.width) player.x = canvas.width - paddleWidth;
+});
 
-    canvas.addEventListener('mousemove', (e)=> {
-        pemainGerak = true;
-        paddleBawahx = e.clientX - canvasPosition - paddleHeight / 2;
-
-        if (paddleBawahx < 0) {
-            paddleBawahx = 0;
-        } else if (paddleBawahx > width - paddleHeight) {
-            paddleBawahx = width - paddleHeight;
-        }
-    });
-}
-
-startGame();
-
-window.addEventListener('resize', () => {
-    if (canvas.parentNode) {
-        canvasPosition = canvas.getBoundingClientRect().left;
-    }
+gameStart.addEventListener('click', () => {
+  gameStart.style.display = 'none';
+  startGame();
 });
