@@ -87,7 +87,7 @@ nav{
 /* side nav */
 
 .nav-container{
-    width: 6%;
+    width: 7%;
     height: 100vh;
     background-color: #373952;
     position: fixed;
@@ -97,6 +97,7 @@ nav{
     flex-direction: column;
     align-items: center;
     z-index: 1;
+    padding: 0px 2px;
 }
 
 .nav-container:hover{
@@ -121,7 +122,7 @@ nav{
     align-items: center;
     border-radius: 10px;
     text-decoration: none;
-    font-size: small
+    font-size: small;
 }
 
 .side-nav{
@@ -200,6 +201,16 @@ nav{
     margin-left: 20px;
 }
 
+.section-game1{
+    width: 85%;
+    height: auto;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    margin-top: 60px;
+    margin-left: 20px;
+}
+
 
 .baris{
     padding-left: 10px;
@@ -226,7 +237,7 @@ nav{
     border-radius: 20px;
 }
 
-.bungkus:nth-of-type(n+2){
+.bungkus:nth-of-type(n+1){
     width: 100%;
     animation: appear linear;
     animation-timeline: view();
@@ -265,6 +276,8 @@ footer{
     align-items: center;
     position: relative;
     background-color: #373952;
+    margin-top: 10px;
+    z-index: 2;
 }
 
 #populer{
@@ -381,26 +394,7 @@ footer{
         margin-top: 10px;
         border-radius: 10px;
         text-decoration: none;
-    }
-
-    .tombol{
-        position: absolute;
-        border: none;
-        cursor: pointer;
-        background: fixed;
-        color: #ffffff;
-        width: 3rem;
-        height: 100%;
-    }
-
-    .carousel:hover .tombol{
-        position: absolute;
-        border: none;
-        background-color:rgba(0, 0, 0, 0.452);
-        cursor: pointer;
-        color: #ffffff;
-        width: 3rem;
-        height: 100%;
+        font-size: medium;
     }
 
     .section-game{
@@ -411,12 +405,15 @@ footer{
         align-items: flex-start;
         margin-top: 20px;
     }
-
-    .bungkus:nth-of-type(n+2){
-        width: 100%;
-        animation: appear linear;
-        animation-timeline: view();
-        animation-range: entry 0;
+   
+    .section-game1{
+        width: 85%;
+        height: auto;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        margin-top: 20px;
+        margin-left: 20px;
     }
 
     .baris{
