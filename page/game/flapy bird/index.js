@@ -6,7 +6,6 @@ const canvas = document.getElementById('game');
     lagu.preload = "auto";
     lagu.loop = true;
 
-    // Resize canvas to fit window
     function resizeCanvas() {
       canvas.width = window.innerWidth;
       canvas.height = window.innerHeight;
@@ -38,7 +37,6 @@ const canvas = document.getElementById('game');
 
     function drawPipes() {
       for (let pipe of pipes) {
-        //  pipe
         ctx.fillStyle = '#70c5ce';
         ctx.fillRect(pipe.x, 0, pipeWidth, pipe.topHeight);
 

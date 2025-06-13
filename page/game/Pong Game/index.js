@@ -6,11 +6,10 @@ sound.preload = "auto";
 soundDinding.preload = "auto";
 
 function resizeCanvas() {
-    if (window.innerWidth <= 768) { // Ukuran untuk mobile
+    if (window.innerWidth < 768) { 
       canvas.width = window.innerWidth;
       canvas.height = window.innerHeight;
     } else {
-      // Ukuran default untuk desktop
       canvas.width = 500;
       canvas.height = 700;
     }
@@ -18,7 +17,6 @@ function resizeCanvas() {
 
 resizeCanvas();
 
-  // Juga panggil saat window di-resize
 window.addEventListener('resize', resizeCanvas);
 
 const paddleWidth = 100;
